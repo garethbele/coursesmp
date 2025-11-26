@@ -22,12 +22,12 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . /app/
 
-# Copy entrypoint script
-COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
-
 # Expose port (Render maps $PORT automatically)
 EXPOSE 10000
 
-# Use entrypoint script
+# Entrypoint script to start Gunicorn
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# Run entrypoint
 CMD ["/app/entrypoint.sh"]
