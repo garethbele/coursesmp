@@ -75,13 +75,14 @@ WSGI_APPLICATION = 'course_service.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'coursedb',
-        'USER': 'postgres',
-        'PASSWORD': 'system',
-        'HOST': 'localhost',
+        'NAME': 'coursedb_yeur',
+        'USER': 'coursedb_yeur_user',
+        'PASSWORD': 'J6ArTCPrukvMHUpevMHaoqLrrILg9UGE',
+        'HOST': 'dpg-d4jl0pmr433s739fme00-a',
         'PORT': '5432',
     }
 }
