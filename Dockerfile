@@ -28,8 +28,5 @@ COPY . /app/
 # Expose port (Render maps $PORT automatically)
 EXPOSE 10000
 
-# Run migrations (optional, handled by workflow if preferred)
-# RUN python manage.py migrate
-
 # Start Gunicorn
 CMD ["gunicorn", "course_service.wsgi:application", "--bind", "0.0.0.0:10000", "--workers", "3"]
