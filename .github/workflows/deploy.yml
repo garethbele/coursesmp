@@ -1,0 +1,43 @@
+name: Deploy Django to Render with Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Install Render CLI
+      - name: Install Render CLI
+        run: |
+          curl -L https://install.render.com | bash
+
+      # 3. Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t coursesmp .
+
+      # 4. Run Django migrations inside Docker (hardcoded DB credentials)
+      - name: Run migrations
+        run: |
+          docker run --rm \
+            -e DATABASE_NAME=coursedb_yeur \
+            -e DATABASE_USER=coursedb_yeur \
+            -e DATABASE_PASSWORD=J6ArTCPrukvMHUpevMHaoqLrrILg9UGE \
+            -e DATABASE_HOST=dpg-d4jl0pmr433s739fme00-a \
+            -e DATABASE_PORT=5432 \
+            coursesmp \
+            python manage.py migrate
+
+      # 5. Deploy to Render (fully hardcoded)
+      - name: Deploy to Render
+        run: |
+          RENDER_API_KEY="rnd_I4LH4MoJ1ycdycZLRNVV10FUF6SO"
+          render deploy --service coursesmp --api-key $RENDER_API_KEY
