@@ -18,4 +18,3 @@ jobs:
 
       # Optionally, push to a registry if Render is configured to pull from GitHub
       # For Render’s GitHub Auto-Deploy, you can skip this step entirely
-*
