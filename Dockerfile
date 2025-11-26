@@ -22,8 +22,12 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . /app/
 
+# Copy entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # Expose port (Render maps $PORT automatically)
 EXPOSE 10000
 
-# Run migrations at container start, then start Gunicorn
-CMD python manage.py migrate && gunicorn course_service.wsgi:application --bind 0.0.0.0:10000 --workers 3
+# Use entrypoint script
+CMD ["/app/entrypoint.sh"]
