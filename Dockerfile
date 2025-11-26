@@ -12,7 +12,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y build-essential libpq-dev curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for caching
+# Copy requirements first (for caching)
 COPY requirements.txt /app/
 
 # Install Python dependencies
@@ -22,8 +22,8 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . /app/
 
-# Expose port (Render uses $PORT automatically)
+# Expose port (Render maps $PORT automatically)
 EXPOSE 10000
 
-# Start Gunicorn directly (no sh file)
+# Start Gunicorn (migrations commented since DB is ready)
 CMD ["gunicorn", "course_service.wsgi:application", "--bind", "0.0.0.0:10000", "--workers", "3"]
