@@ -10,24 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Install Node.js (needed for npm)
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      # 3. Install Render CLI via npm
+      # 2. Install Render CLI
       - name: Install Render CLI
-        run: npm install -g @render/cli
+        run: |
+          curl -L https://install.render.com | bash
+          # Add Render CLI to PATH for this shell session
+          export PATH=$HOME/.render/bin:$PATH
+          render --version  # verify it's installed
 
-      # 4. Build Docker image
+      # 3. Build Docker image
       - name: Build Docker image
         run: docker build -t coursesmp .
 
-      # 5. Deploy to Render
+      # 4. Deploy to Render
       - name: Deploy to Render
-        run: render deploy --service coursesmp --api-key rnd_I4LH4MoJ1ycdycZLRNVV10FUF6SO
+        run: |
+          export PATH=$HOME/.render/bin:$PATH
+          render deploy --service coursesmp --api-key rnd_I4LH4MoJ1ycdycZLRNVV10FUF6SO
