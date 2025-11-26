@@ -29,7 +29,7 @@ jobs:
         run: |
           docker run --rm \
             -e DATABASE_NAME=coursedb_yeur \
-            -e DATABASE_USER=coursedb_yeur \
+            -e DATABASE_USER=coursedb_yeur_user \
             -e DATABASE_PASSWORD=J6ArTCPrukvMHUpevMHaoqLrrILg9UGE \
             -e DATABASE_HOST=dpg-d4jl0pmr433s739fme00-a \
             -e DATABASE_PORT=5432 \
