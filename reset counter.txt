@@ -1,0 +1,3 @@
+SELECT pg_get_serial_sequence('public.courses_course', 'id');
+
+SELECT setval('public.courses_course_id_seq', 1, false);
