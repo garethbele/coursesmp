@@ -1,9 +1,9 @@
-name: Deploy to Render
+name: Deploy Django to Render with Docker
 
 on:
   push:
     branches:
-      - main  # Deploy on push to main branch
+      - main
 
 jobs:
   deploy:
@@ -13,20 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Render
-        run: |
-          curl -fsSL https://install.render.com | bash
-          export PATH=$HOME/.render/bin:$PATH
-          render login --api-key rnd_I4LH4MoJ1ycdycZLRNVV10FUF6SO
-
       - name: Build Docker image
-        run: docker build -t coursesmp:latest .
+        run: docker build -t coursesmp .
 
-      - name: Push & Deploy to Render
-        run: |
-          # If migrations needed in future, uncomment the next line
-          # docker run --rm coursesmp:latest python manage.py migrate
-          render deploy --service srv-d4jojqfdiees73b1tneg --api-key rnd_I4LH4MoJ1ycdycZLRNVV10FUF6SO
+      # Optionally, push to a registry if Render is configured to pull from GitHub
+      # For Render’s GitHub Auto-Deploy, you can skip this step entirely
